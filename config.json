@@ -1,0 +1,7 @@
+{
+  "port": 80,
+  "secret": "aaa",
+  "secure": false,
+  "username": "admin",
+  "passwd": "aeth"
+}

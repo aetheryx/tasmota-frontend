@@ -1,0 +1,50 @@
+{
+  "name": "tasmota-frontend",
+  "version": "1.0.0",
+  "description": "A simple frontend for Tasmota smart bulbs made in React and Node.js",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node ./src/server/index.js --development",
+    "build-dev": "./node_modules/.bin/webpack-cli --config ./webpack/dev.config.js --display-error-details",
+    "build-prod": "./node_modules/.bin/webpack-cli -p --config ./webpack/prod.config.js --display-error-details"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aetheryx/tasmota-frontend.git"
+  },
+  "author": "aetheryx",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aetheryx/tasmota-frontend/issues"
+  },
+  "homepage": "https://github.com/aetheryx/tasmota-frontend#readme",
+  "dependencies": {
+    "async-mqtt": "^2.2.0",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "mosca": "^2.8.3",
+    "mqtt": "^2.18.8",
+    "react-color": "^2.17.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "browser-sync": "^2.26.3",
+    "browser-sync-webpack-plugin": "^2.2.2",
+    "css-loader": "^2.1.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.11.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "react-router-dom": "^4.3.1",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^2.1.1",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3"
+  }
+}
