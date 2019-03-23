@@ -1,4 +1,7 @@
 const { resolve } = require('path');
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const src = resolve(__dirname, '..', 'src');
 
@@ -11,6 +14,15 @@ module.exports = {
     path: resolve(src, 'server', 'static'),
     filename: 'bundle.js'
   },
+  optimization: {
+    minimizer: [
+      new OptimizeCSSAssetsPlugin(),
+      new UglifyJSPlugin({
+        cache: true,
+        parallel: true
+      })
+    ]
+  },
   module: {
     rules: [
       {
@@ -22,10 +34,22 @@ module.exports = {
           }
         },
         include: resolve(src, 'app')
+      }, {
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          MiniCSSExtractPlugin.loader,
+          'css-loader',
+          'sass-loader'
+        ]
       }
     ]
   },
   resolve: {
     extensions: [ '.jsx', '.js' ]
-  }
+  },
+  plugins: [
+    new MiniCSSExtractPlugin({
+      filename: 'style.css'
+    })
+  ]
 };
