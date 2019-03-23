@@ -6,10 +6,34 @@ process.env.NODE_ENV = process.argv.includes('--development')
 const config = require('../../config.json');
 const express = require('express');
 const path = require('path');
+const mqtt = require('async-mqtt');
+
+let state = {};
 
 const app = express();
+const client = mqtt.connect('tcp://192.168.178.20');
+
+client.on('connect', async () => {
+  await client.subscribe('stat/bulb/RESULT');
+  client.on('message', (topic, packet) => {
+    if (topic === 'stat/bulb/RESULT') {
+      state = JSON.parse(packet);
+    }
+  });
+});
+
+client.on('error', console.error);
 
 app.use(express.static(path.resolve(__dirname, 'static')));
+
+app.get('/mqtt/update', (req, res) => {
+  client.publish(req.query.topic, req.query.data);
+  res.status(200).send();
+});
+
+app.get('/mqtt/state', (req, res) => {
+  res.status(200).send(state);
+});
 
 app.get('/auth', (req, res) => {
   const [ username, passwd ] = Buffer.from(
